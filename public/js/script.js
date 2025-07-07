@@ -4,7 +4,27 @@ async function fetchGet(url){
     return data
 }
 
+async function fetchPostNova(){
+    let obj= {
+        tarefa:"Nova Tarefa (editar)",
+        descrição:"Detalhes da tarefa",
+        criadaem: new Date(),
+        estado:"criada"
+    }
+    
+    await fetch("/api/novatarefa", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    
+    .then(response => response.json()) 
+    .then((json) => {console.log(json)})
+    .catch(err => console.log("err",err))
 
+}
+
+/*
 function cardBasic(tarefa){
   // document.getElementById(id).innerHTML+=
   let card =`<div onclick="cardDetail('${tarefa.id}')" class="${tarefa.estado}">
@@ -13,6 +33,8 @@ function cardBasic(tarefa){
     </div>`
     return card;
 }
+*/
+/*
 function cardDetail(id){
     fetchGet("/api/tarefa/"+id)
     .then((res)=>{
@@ -27,4 +49,10 @@ function cardDetail(id){
         
     })
     return false;
+}
+*/
+
+function loadcard(url){
+   location.href="/tarefa/"+url
+  //alert(url)
 }

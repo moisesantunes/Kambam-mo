@@ -3,20 +3,37 @@
     <h1 class="w3-border w3-text-asphalt">Tarefas:</h1>
 </section>
 <br>
+<!--
 <section class="w3-container w3-center w3-xlarge">
     <nav id="navegar ">
-        <!--
+    
         <a class="w3-asphalt w3-padding  w3-round-xxlarge" style="text-decoration:none" href="/export">export</a>
-	   -->
 	    <a class="w3-asphalt w3-padding  w3-round-xxlarge" style="text-decoration:none" href="/novatarefa">&#128221;</a>
 	    <a class="w3-asphalt w3-padding  w3-round-xxlarge" style="text-decoration:none" href="/tarefas">&#128653;</a>
         <a class="w3-asphalt w3-padding  w3-round-xxlarge" style="text-decoration:none" href="/estatisticas">&#128202;</a>
     </nav>
 </section>
+-->
+<button onclick="fetchPostNova()">NOVA TAREFA</button>
+<br><br>
+
+
 <section id="fichario" class="w3-container">
+ <% tarefas.forEach((item) => { %>
+  <div onclick="loadcard('<%=item.id%>')" class="w3-pannel w3-card  w3-padding-small w3-margin-bottom
+    <% if(item.estado== "criada"){%>w3-note<%} else if(item.estado =="iniciada"){%>w3-light-blue<%}else{%>w3-blue-grey<%}%>" >
+    <h3 class=""><%= item.tarefa %></h3>
+    <p > <%= item.descrição %></p>
+    <p > <%= item.criadaem %></p>
+  </div>
+  
+<% }); %>
+ 
     
-</section>	
+</section>
+
 	<script>
+	   <% /* %>
 	    document.addEventListener("DOMContentLoaded",(event)=>{
 	       fetchGet('/api/tarefas')
 	        .then((res)=>{
@@ -27,5 +44,5 @@
 	           // console.log(res)
 	        })
 	    })
+	    <% */%>
 	</script>
-	

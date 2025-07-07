@@ -1,0 +1,15 @@
+<% layout('boilerplate') -%>
+<%- include('partials/nav.ejs') %>
+<h1 style="text-align:center">KAMBAM </h1>
+<br>
+<section class="">
+    <div class="w3-pannel w3-card  w3-padding-small w3-margin-bottom
+        <% if(tarefa.estado== "criada"){%>w3-note<%} else if(tarefa.estado =="iniciada"){%>w3-light-blue<%}else{%>w3-blue-grey<%}%>" >
+        <h2 contenteditable="true" class=""><%= tarefa.tarefa %></h2>
+        <p id="corpo" contenteditable="true" > <%= tarefa.descrição %><%= tarefa.id %></p>
+        <p > <%= tarefa.criadaem %></p>
+  </div>
+  <button >SALVAR</button>
+</section>
+<script>
+</script>
