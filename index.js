@@ -53,12 +53,12 @@ app.get('/', async (req, res) => {
    let tarefas;
     try {
         tarefas = await fs.readFile("tarefas.json",{encoding:"utf-8"})
-    console.log("dentro  try", JSON.parse(tarefas))
+//    console.log("dentro  try", JSON.parse(tarefas))
         
     } catch (e) {
        console.log(e)
     }
-    console.log("fora try",tarefas)
+//    console.log("fora try",tarefas)
     res.render('index',{
         titulo:"Tarefas",
 	    tarefas: JSON.parse(tarefas),
@@ -88,11 +88,12 @@ app.get('/api/tarefas', (req, res)=>{
 app.get('/api/tarefa/:id', (req, res)=>{
 	let tarefa=""
 	tarefa = tarefas.find((item)=>item.id ==req.params.id)
-	
+	console.log("carregou")
 	res.json(tarefa)
 })
 app.post("/api/novatarefa", async (req,res)=>{
    let tarefas;
+   
    req.body.id=uniqid()
    try {
         tarefas = JSON.parse(await fs.readFile("tarefas.json",{encoding:"utf-8"}))
@@ -105,7 +106,25 @@ app.post("/api/novatarefa", async (req,res)=>{
     res.json(req.body)
 })
 
-
+app.post("/api/edittarefa",async (req,res)=>{
+    let tarefas;
+    let tarefa;
+    
+    try {
+        tarefas = JSON.parse(await fs.readFile("tarefas.json",{encoding:"utf-8"}))
+        tarefa = await tarefas.find((item)=>item.id ==req.body.id)
+        tarefa.tarefa = req.body.tarefa
+        tarefa.descrição= req.body.descrição
+        tarefa.estado=req.body.estado
+        await fs.writeFile("tarefas.json",JSON.stringify(tarefas))
+   
+    } catch (e) {
+        console.log(e)
+    }
+    console.log("tarefa",tarefa)
+    res.json(req.body)
+      
+})
 ///////////
 
 

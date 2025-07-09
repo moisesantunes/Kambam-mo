@@ -5,11 +5,21 @@
 <section class="">
     <div class="w3-pannel w3-card  w3-padding-small w3-margin-bottom
         <% if(tarefa.estado== "criada"){%>w3-note<%} else if(tarefa.estado =="iniciada"){%>w3-light-blue<%}else{%>w3-blue-grey<%}%>" >
-        <h2 contenteditable="true" class=""><%= tarefa.tarefa %></h2>
-        <p id="corpo" contenteditable="true" > <%= tarefa.descrição %><%= tarefa.id %></p>
-        <p > <%= tarefa.criadaem %></p>
+        <h2 id="cabeca"contenteditable="true" class=""><%= tarefa.tarefa %></h2>
+        <div id="corpo" contenteditable="plaintext-only" style="width:100%;height:20vh;overflow:auto" ><%= tarefa.descrição %></div>
+        <p>
+            <input class="w3-radio" <% if(tarefa.estado=="criada") {%>checked="true"<%}%> type="radio" id="criada" name="estado" value="criada">
+            <label for="criada">Criada</label>
+            <input class="w3-radio" <% if(tarefa.estado=="iniciada") {%>checked="true"<%}%> type="radio" id="iniciada" name="estado" value="iniciada">
+            <label for="iniciada">Iniciada</label>
+            <input class="w3-radio" <% if(tarefa.estado=="feita") {%>checked="true"<%}%> type="radio" id="feita" name="estado" value="feita">
+            <label for="feita">Feita</label>
+        </p>
+        <div id="id" style="display:none"><%= tarefa.id %></div>
+        <p id="criadaem" > <%= tarefa.criadaem %></p>
   </div>
-  <button >SALVAR</button>
+  <button onclick="fetchPostEdit('<%= tarefa.id %>')"id="botao" >SALVAR</button>
 </section>
 <script>
+    
 </script>

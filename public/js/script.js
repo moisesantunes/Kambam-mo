@@ -3,7 +3,7 @@ async function fetchGet(url){
     const data = await response.json()
     return data
 }
-
+///criar tarefa
 async function fetchPostNova(){
     let obj= {
         tarefa:"Nova Tarefa (editar)",
@@ -12,17 +12,56 @@ async function fetchPostNova(){
         estado:"criada"
     }
     
+    
     await fetch("/api/novatarefa", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
-    
-    .then(response => response.json()) 
-    .then((json) => {console.log(json)})
+    .then(response =>response.json()) 
+    .then((tarefa) => {
+        console.log("trefa salva",tarefa)
+        //loadcard(tarefa.id)
+        
+    })
     .catch(err => console.log("err",err))
-
 }
+
+/////editar tarefa
+
+async function fetchPostEdit(){
+    let obj= {
+        tarefa:document.getElementById("cabeca").innerText,
+        descrição:document.getElementById("corpo").innerHTML,
+        criadaem: document.getElementById("criadaem").innerText,
+        estado:"criada",
+        id:document.getElementById("id").innerText,
+        
+    }
+    const estadot= document.getElementsByName("estado")
+ for (var i = 0; i < estadot.length; i++) {
+     if(estadot[i].checked){
+         obj.estado=estadot[i].value
+         estadot[i].checked=true
+     }
+ }
+    await fetch("/api/edittarefa", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+
+    .then(response =>response.json()) 
+    .then((json) => {
+        console.log(json.estado)
+        loadcard(json.id)
+    })
+    .catch(err => console.log("err",err))
+    
+}
+
+
+
 
 /*
 function cardBasic(tarefa){
@@ -54,5 +93,4 @@ function cardDetail(id){
 
 function loadcard(url){
    location.href="/tarefa/"+url
-  //alert(url)
 }
